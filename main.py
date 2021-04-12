@@ -1,10 +1,4 @@
-def on_on_overlap(sprite, otherSprite):
-    info.change_score_by(1)
-    info.start_countdown(1.4)
-    mySprite2.set_position(randint(10, 160), randint(10, 120))
-sprites.on_overlap(SpriteKind.player, SpriteKind.food, on_on_overlap)
-
-mySprite2: Sprite = None
+mySprite3: Sprite = None
 scene.set_background_color(11)
 mySprite = sprites.create(img("""
         . . 4 4 4 . . . . 4 4 4 . . . . 
@@ -59,3 +53,40 @@ mySprite2 = sprites.create(img("""
             ................................
     """),
     SpriteKind.food)
+if True:
+    mySprite3 = sprites.create(img("""
+            . . . . . . . . . . b 5 b . . . 
+                    . . . . . . . . . b 5 b . . . . 
+                    . . . . . . b b b b b b . . . . 
+                    . . . . . b b 5 5 5 5 5 b . . . 
+                    . . . . b b 5 d 1 f 5 5 d f . . 
+                    . . . . b 5 5 1 f f 5 d 4 c . . 
+                    . . . . b 5 5 d f b d d 4 4 . . 
+                    . b b b d 5 5 5 5 5 4 4 4 4 4 b 
+                    b d d d b b d 5 5 4 4 4 4 4 b . 
+                    b b d 5 5 5 b 5 5 5 5 5 5 b . . 
+                    c d c 5 5 5 5 d 5 5 8 5 5 5 b . 
+                    c b d c d 5 5 b 5 5 8 5 5 5 b . 
+                    . c d d c c b d 5 5 5 5 5 d b . 
+                    . . c b d d d d d 5 5 5 b b . . 
+                    . . . c c c c c c c c b b . . . 
+                    . . . . . . . . . . . . . . . .
+        """),
+        SpriteKind.player)
+    mySprite3.set_position(57, 63)
+    controller.move_sprite(mySprite3, 70, 50)
+else:
+    mySprite3.follow(mySprite)
+
+def on_forever():
+    if mySprite.overlaps_with(mySprite2):
+        info.change_score_by(1)
+        info.start_countdown(1.4)
+        mySprite2.set_position(randint(10, 160), randint(10, 120))
+forever(on_forever)
+
+def on_forever2():
+    if mySprite.overlaps_with(mySprite3):
+        mySprite.destroy()
+        game.over(False, effects.dissolve)
+forever(on_forever2)
